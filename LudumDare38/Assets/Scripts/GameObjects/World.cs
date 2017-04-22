@@ -7,6 +7,9 @@ public class World : MonoBehaviour
 
 	void Update () 
 	{
+		if(UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+			return;
+
 		int layerMask = (1 << 11);
 		layerMask |= (1 << 12);
 		layerMask = ~layerMask;

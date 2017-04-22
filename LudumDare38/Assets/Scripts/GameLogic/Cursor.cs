@@ -9,6 +9,12 @@ public class Cursor : MonoBehaviour
 	TextMeshProUGUI label;
 
 	bool emptySlot = false;
+	bool spawnMode = false;
+
+	public bool SpawnMode
+	{
+		get { return spawnMode; } set { spawnMode = value; }
+	}
 
 	public bool EmptySlot
 	{
@@ -22,7 +28,11 @@ public class Cursor : MonoBehaviour
 
 		this.transform.position = Input.mousePosition;
 
-		if(GameplayManager.Instance.Player.MeepleCharge < 1f)
+		if(!SpawnMode)
+		{
+			label.text = "Engage spawn mode to place tribesmen";
+		}
+		else if(GameplayManager.Instance.Player.MeepleCharge < 1f)
 		{
 			label.text = "Breeding...";
 		}
