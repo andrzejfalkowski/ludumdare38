@@ -22,7 +22,7 @@ public class CameraDragMove : MonoBehaviour
 	public const float MIN_ZOOM = 15f;
 	public const float ZOOM_SPEED = 0.5f;
 
-	public const float ARROWS_MOVE_SPEED = 2f;
+	public const float ARROWS_MOVE_SPEED = 3f;
 
 	void Start () 
 	{
@@ -38,43 +38,52 @@ public class CameraDragMove : MonoBehaviour
 		{
 			return;
 		}
+			
+		Vector3 viewportMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
 		if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || 
-			Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+			Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) ||
+			viewportMousePosition.x < 0.05f || viewportMousePosition.x > 0.95f ||
+			viewportMousePosition.y < 0.05f || viewportMousePosition.y > 0.95f)
 		{
+			//Debug.Log(Input.mousePosition);
+
 			origin = this.transform.position;
 			DOTween.Kill("DragCamera");
 			Drag = false;
 
 			difference = Vector3.zero;
 
-			if(Input.GetKey(KeyCode.LeftArrow))
+			if(Input.GetKey(KeyCode.LeftArrow) || viewportMousePosition.x < 0.05f)
 				difference.x -= ARROWS_MOVE_SPEED;
-			else if(Input.GetKey(KeyCode.RightArrow))
+			else if(Input.GetKey(KeyCode.RightArrow) || viewportMousePosition.x > 0.95f)
 				difference.x += ARROWS_MOVE_SPEED;
 
-			if(Input.GetKey(KeyCode.UpArrow))
+			if(Input.GetKey(KeyCode.UpArrow) || viewportMousePosition.y > 0.95f)
 				difference.y += ARROWS_MOVE_SPEED;
-			else if(Input.GetKey(KeyCode.DownArrow))
+			else if(Input.GetKey(KeyCode.DownArrow) || viewportMousePosition.y < 0.05f)
 				difference.y -= ARROWS_MOVE_SPEED;
 
-			this.transform.DOMove(origin + difference, 0.3f).SetId("DragCamera").SetUpdate(UpdateType.Late);
-		}
+			Vector3 target = origin + difference;
+			target.x = Mathf.Min(Mathf.Max(-10f, target.x), 40f);
+			target.y = Mathf.Min(Mathf.Max(-15f, target.y), 10f);
 
-		else if(Input.GetMouseButton(1) && !BlockDrag) 
-		{
-			difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
-			if(!Drag)
-			{
-				Drag = true;
-				origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			}
-		} 
-		else 
-		{
-			Drag = false;
+			this.transform.DOMove(target, 0.3f).SetId("DragCamera").SetUpdate(UpdateType.Late);
 		}
-
+//		else if(Input.GetMouseButton(1) && !BlockDrag) 
+//		{
+//			difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
+//			if(!Drag)
+//			{
+//				Drag = true;
+//				origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+//			}
+//		} 
+//		else 
+//		{
+//			Drag = false;
+//		}
+//
 		if(Drag)
 		{
 			//Camera.main.transform.position = origin - difference;
@@ -82,15 +91,15 @@ public class CameraDragMove : MonoBehaviour
 			this.transform.DOMove(origin - difference, 0.3f).SetId("DragCamera").SetUpdate(UpdateType.Late);
 		}
 
-		if(Mathf.Abs(Input.mouseScrollDelta.y) > 0f) 
-		{
-			//Camera.main.orthographicSize = 
-			float targetSize = 
-				Mathf.Clamp(Camera.main.orthographicSize - (Input.mouseScrollDelta.y * ZOOM_SPEED), MAX_ZOOM, MIN_ZOOM);
-			
-			DOTween.To(()=>Camera.main.orthographicSize, (size)=>{Camera.main.orthographicSize = size;}, targetSize, 0.05f)
-				.SetUpdate(UpdateType.Late);
-		}
+//		if(Mathf.Abs(Input.mouseScrollDelta.y) > 0f) 
+//		{
+//			//Camera.main.orthographicSize = 
+//			float targetSize = 
+//				Mathf.Clamp(Camera.main.orthographicSize - (Input.mouseScrollDelta.y * ZOOM_SPEED), MAX_ZOOM, MIN_ZOOM);
+//			
+//			DOTween.To(()=>Camera.main.orthographicSize, (size)=>{Camera.main.orthographicSize = size;}, targetSize, 0.05f)
+//				.SetUpdate(UpdateType.Late);
+//		}
 	}
 
 	public void SnapTo(Vector3 snapTarget, bool zoom = true, float time = 0.3f, Action callback = null)
