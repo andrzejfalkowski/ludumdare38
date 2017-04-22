@@ -56,7 +56,7 @@ public class Meeple : MonoBehaviour
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a),
 			0f,
-			3f);
+			8f);
 	}
 
 	void OnDestroy()
