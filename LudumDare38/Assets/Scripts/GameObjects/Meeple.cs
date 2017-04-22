@@ -64,11 +64,21 @@ public class Meeple : MonoBehaviour
 			);
 	}
 
-	public void Fall()
+	public void Fall(bool upperVoid)
 	{
-		this.GetComponent<Rigidbody2D>().gravityScale = 1f;
+		
 
+		Collider2D[] colliders = this.GetComponentsInChildren<Collider2D>();
+		for(int i = 0; i < colliders.Length; i++)
+		{
+			colliders[i].enabled = false;
+		}
+
+		this.GetComponent<Rigidbody2D>().gravityScale = 1f;
 		DOVirtual.DelayedCall(3f, () => { Destroy(this.gameObject); }, false);
+
+		if(upperVoid)
+			spriteRenderer.sortingOrder = -100;
 	}
 
 	void OnDestroy()
