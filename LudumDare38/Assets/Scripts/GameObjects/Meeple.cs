@@ -40,8 +40,6 @@ public class Meeple : MonoBehaviour
 				break;
 		}
 
-
-
 		GameplayManager.Instance.MeeplesOnMap.Add(this);
 
 		StartShockwave();
@@ -49,13 +47,21 @@ public class Meeple : MonoBehaviour
 
 	void StartShockwave()
 	{
+		this.GetComponent<Rigidbody2D>().mass = 10f;
+
 		Color startColor = shockwave.GetComponent<SpriteRenderer>().color;
 
 		shockwave.transform.DOScale(new Vector3(3f, 3f, 1f), 3f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 3f)
-			.OnComplete(() => shockwave.gameObject.SetActive(false));
+			.OnComplete(
+				() => 
+				{
+					shockwave.gameObject.SetActive(false);
+					this.GetComponent<Rigidbody2D>().mass = 1f;
+				}
+			);
 	}
 
 	void OnDestroy()
