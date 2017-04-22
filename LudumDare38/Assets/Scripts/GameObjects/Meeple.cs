@@ -16,8 +16,11 @@ public class Meeple : MonoBehaviour
 
 	[SerializeField]
 	SpriteRenderer spriteRenderer;
+
 	[SerializeField]
 	GameObject shockwave;
+	[SerializeField]
+	GameObject physicsBlock;
 
 	public void Init(EMeepleTribe newTribe)
 	{
@@ -27,11 +30,17 @@ public class Meeple : MonoBehaviour
 		{
 			case EMeepleTribe.Red:
 				spriteRenderer.color = Color.red;
+				physicsBlock.layer = LayerMask.NameToLayer("MeepleRed");
+				shockwave.layer = LayerMask.NameToLayer("MeepleRedShockwave");
 				break;
 			case EMeepleTribe.Blue:
 				spriteRenderer.color = Color.blue;
+				physicsBlock.layer = LayerMask.NameToLayer("MeepleBlue");
+				shockwave.layer = LayerMask.NameToLayer("MeepleBlueShockwave");
 				break;
 		}
+
+
 
 		GameplayManager.Instance.MeeplesOnMap.Add(this);
 
