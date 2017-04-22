@@ -6,6 +6,9 @@ public class GameplayManager : MonoBehaviour
 {
 	public static GameplayManager Instance = null;
 
+	public PlayerLogic Player;
+	public PlayerLogic Opponent;
+
 	void Awake()
 	{
 		Instance = this;

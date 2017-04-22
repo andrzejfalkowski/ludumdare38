@@ -13,7 +13,11 @@ public class InputManager : MonoBehaviour
 
 	public void WorldClicked()
 	{
-		GameplayManager.Instance.CreateMeeple(EMeepleTribe.Red, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		if(GameplayManager.Instance.Player.MeepleCharge >= 1f)
+		{
+			GameplayManager.Instance.Player.MeepleCharge = 0f;
+			GameplayManager.Instance.CreateMeeple(EMeepleTribe.Red, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		}
 	}
 
 	void OnDestroy()

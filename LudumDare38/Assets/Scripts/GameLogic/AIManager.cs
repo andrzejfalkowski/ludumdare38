@@ -6,23 +6,19 @@ public class AIManager : MonoBehaviour
 {
 	public static AIManager Instance = null;
 
+	public PlayerLogic SimulatedPlayer;
+
 	void Awake()
 	{
 		Instance = this;
+
+		SimulatedPlayer.OnChargeReady += SimulateCreatingMeeple;
 	}
 
-	private float nextAction = 0f;
-
-	void Update () 
+	void SimulateCreatingMeeple()
 	{
-		nextAction += Time.deltaTime;
-
-		if(nextAction > 3f)
-		{
-			nextAction = 0f;
-
-			GameplayManager.Instance.CreateMeeple(EMeepleTribe.Blue, new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f)));
-		}
+		GameplayManager.Instance.CreateMeeple(SimulatedPlayer.Tribe, new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f)));
+		SimulatedPlayer.MeepleCharge = 0f;
 	}
 
 	void OnDestroy()

@@ -54,9 +54,8 @@ public class Meeple : MonoBehaviour
 		shockwave.transform.DOScale(new Vector3(3f, 3f, 1f), 3f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
-			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a),
-			0f,
-			8f);
+			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 3f)
+			.OnComplete(() => shockwave.gameObject.SetActive(false));
 	}
 
 	void OnDestroy()
