@@ -8,6 +8,9 @@ public class AIManager : MonoBehaviour
 
 	public PlayerLogic SimulatedPlayer;
 
+	[SerializeField]
+	Collider2D worldCollider;
+
 	void Awake()
 	{
 		Instance = this;
@@ -17,8 +20,21 @@ public class AIManager : MonoBehaviour
 
 	void SimulateCreatingMeeple()
 	{
-		GameplayManager.Instance.CreateMeeple(SimulatedPlayer.Tribe, new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f)));
-		SimulatedPlayer.MeepleCharge = 0f;
+		int cnt = 0;
+		// Get random point in collider
+		Vector2 randomPoint = new Vector2(Random.Range(-7f, 34f), Random.Range(-12f, 7f));
+
+		while(!worldCollider.OverlapPoint(randomPoint) && cnt < 10)
+		{
+			randomPoint = new Vector2(Random.Range(-7f, 34f), Random.Range(-12f, 7f));
+			cnt++;
+		}
+
+		if(cnt < 100)
+		{
+			GameplayManager.Instance.CreateMeeple(SimulatedPlayer.Tribe, randomPoint);
+			SimulatedPlayer.MeepleCharge = 0f;
+		}
 	}
 
 	void OnDestroy()
