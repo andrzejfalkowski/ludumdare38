@@ -51,7 +51,7 @@ public class Meeple : MonoBehaviour
 
 		Color startColor = shockwave.GetComponent<SpriteRenderer>().color;
 
-		shockwave.transform.DOScale(new Vector3(3f, 3f, 1f), 1f);
+		shockwave.transform.DOScale(new Vector3(8f, 8f, 1f), 1f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 1f)
@@ -62,6 +62,13 @@ public class Meeple : MonoBehaviour
 					this.GetComponent<Rigidbody2D>().mass = 1f;
 				}
 			);
+	}
+
+	public void Fall()
+	{
+		this.GetComponent<Rigidbody2D>().gravityScale = 1f;
+
+		DOVirtual.DelayedCall(3f, () => { Destroy(this.gameObject); }, false);
 	}
 
 	void OnDestroy()
