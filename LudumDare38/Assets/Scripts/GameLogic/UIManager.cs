@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
 		Instance = this;
 	}
 
+	public Cursor Cursor;
+
 	[SerializeField]
 	Image playerChargeBar;
 	[SerializeField]
