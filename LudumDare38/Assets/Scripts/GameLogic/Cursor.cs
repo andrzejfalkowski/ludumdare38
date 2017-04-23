@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Cursor : MonoBehaviour 
 {
 	[SerializeField]
 	TextMeshProUGUI label;
+	[SerializeField]
+	GameObject tribesmanSymbol;
 
 	bool emptySlot = false;
 	bool spawnMode = false;
@@ -27,6 +30,8 @@ public class Cursor : MonoBehaviour
 			return;
 
 		this.transform.position = Input.mousePosition;
+
+		tribesmanSymbol.SetActive(SpawnMode);
 
 		if(!SpawnMode)
 		{
