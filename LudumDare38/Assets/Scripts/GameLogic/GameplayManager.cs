@@ -23,14 +23,14 @@ public class GameplayManager : MonoBehaviour
 
 	public List<Meeple> MeeplesOnMap;
 
-	public void CreateMeeple(EMeepleTribe tribe, Vector2 position, int alliesInRange)
+	public void CreateMeeple(PlayerLogic player, Vector2 position, int alliesInRange)
 	{
 		GameObject meeple = GameObject.Instantiate(meeplePrefab);
 		meeple.transform.SetParent(meeplesParent);
 		meeple.transform.localScale = Vector3.one;
 		meeple.transform.localPosition = position;
 
-		meeple.GetComponent<Meeple>().Init(tribe, alliesInRange);
+		meeple.GetComponent<Meeple>().Init(player, alliesInRange);
 	}
 
 	void Update()
