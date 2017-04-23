@@ -35,7 +35,10 @@ public class Meeple : MonoBehaviour
 
     private void Update()
     {
-        owner.AddChargeBonus(GetOccupiedLandValue());
+        if (owner != null)
+        {
+            owner.AddChargeBonus(GetOccupiedLandValue());
+        }
     }
 
     public void Init(PlayerLogic owner, int alliesInRange)
