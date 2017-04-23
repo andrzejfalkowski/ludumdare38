@@ -15,7 +15,7 @@ public class Meeple : MonoBehaviour
 	public EMeepleTribe Tribe;
 
 	[SerializeField]
-	SpriteRenderer spriteRenderer;
+	SpriteRenderer[] spriteRenderers;
 
 	[SerializeField]
 	GameObject shockwave;
@@ -29,14 +29,21 @@ public class Meeple : MonoBehaviour
 		switch(newTribe)
 		{
 		case EMeepleTribe.Red:
-				spriteRenderer.color = Color.red;
+                foreach (SpriteRenderer sprite in spriteRenderers)
+                {
+                    sprite.color = Color.red;
+                }
 				physicsBlock.layer = LayerMask.NameToLayer("MeepleRed");
 				shockwave.layer = LayerMask.NameToLayer("MeepleRedShockwave");
 				GameplayManager.Instance.Player.Population++;
 				break;
 			case EMeepleTribe.Blue:
-				spriteRenderer.color = Color.blue;
-				physicsBlock.layer = LayerMask.NameToLayer("MeepleBlue");
+                transform.localScale = new Vector3(-1, 1, 1);
+                foreach (SpriteRenderer sprite in spriteRenderers)
+                {
+                    sprite.color = Color.blue;
+                }
+                physicsBlock.layer = LayerMask.NameToLayer("MeepleBlue");
 				shockwave.layer = LayerMask.NameToLayer("MeepleBlueShockwave");
 				GameplayManager.Instance.Opponent.Population++;
 				break;
@@ -80,7 +87,12 @@ public class Meeple : MonoBehaviour
 		DOVirtual.DelayedCall(3f, () => { Destroy(this.gameObject); }, false);
 
 		if(upperVoid)
-			spriteRenderer.sortingOrder = -100;
+        {
+            foreach (SpriteRenderer sprite in spriteRenderers)
+            {
+                sprite.sortingOrder = -100;
+            }
+        }
 	}
 
 	void OnDestroy()
