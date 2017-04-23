@@ -6,6 +6,8 @@ public class Void : MonoBehaviour
 {
 	[SerializeField]
 	private bool upperVoid = false;
+	[SerializeField]
+	private int spriteOrder = 0;
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -15,7 +17,7 @@ public class Void : MonoBehaviour
 		if(other.GetComponentInParent<Meeple>() != null
             && !other.isTrigger)
 		{
-			other.GetComponentInParent<Meeple>().Fall(upperVoid);
+			other.GetComponentInParent<Meeple>().Fall(upperVoid, spriteOrder);
 		}
 	}
 }
