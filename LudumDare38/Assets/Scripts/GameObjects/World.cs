@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class World : MonoBehaviour 
 {
+	[SerializeField]
+	Transform meepleParent;
 
 	void Update () 
 	{
@@ -38,6 +40,14 @@ public class World : MonoBehaviour
 			UIManager.Instance.Cursor.EmptySlot = false;
 		}
     }
+
+	void OnCollider2DEnter(Collider other)
+	{
+		if(other.gameObject.GetComponent<Meeple>() != null)
+		{
+			Debug.Log("OnCollider2DEnter");
+		}
+	}
 
     private int GetAlliesNumber(EMeepleTribe tribe)
     {

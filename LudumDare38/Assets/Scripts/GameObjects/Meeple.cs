@@ -98,7 +98,7 @@ public class Meeple : MonoBehaviour
         return 1f + 2f *((float)alliesInRange - 1f) / ((float)alliesInRange + 4f);
     }
 
-	public void Fall(bool upperVoid)
+	public void Fall(bool upperVoid, int spriteOrder)
 	{
 		Collider2D[] colliders = this.GetComponentsInChildren<Collider2D>();
 		for(int i = 0; i < colliders.Length; i++)
@@ -110,12 +110,12 @@ public class Meeple : MonoBehaviour
 		DOVirtual.DelayedCall(3f, () => { Destroy(this.gameObject); }, false);
 
 		if(upperVoid)
-        {
-            foreach (SpriteRenderer sprite in spriteRenderers)
-            {
-                sprite.sortingOrder = -100;
-            }
-        }
+		{
+			foreach(SpriteRenderer sprite in spriteRenderers)
+			{
+				sprite.sortingOrder = spriteOrder;
+			}
+		}
 	}
 
 	void OnDestroy()
