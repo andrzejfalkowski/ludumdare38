@@ -9,7 +9,8 @@ public class Void : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.GetComponentInParent<Meeple>() != null)
+		if(other.GetComponentInParent<Meeple>() != null
+            && !other.isTrigger)
 		{
 			other.GetComponentInParent<Meeple>().Fall(upperVoid);
 		}

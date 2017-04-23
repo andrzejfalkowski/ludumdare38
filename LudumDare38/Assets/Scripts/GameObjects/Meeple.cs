@@ -19,10 +19,12 @@ public class Meeple : MonoBehaviour
 
 	[SerializeField]
 	GameObject shockwave;
-	[SerializeField]
-	GameObject physicsBlock;
+    [SerializeField]
+    GameObject physicsBlock;
+    [SerializeField]
+    GameObject allyRange;
 
-	public void Init(EMeepleTribe newTribe)
+    public void Init(EMeepleTribe newTribe)
 	{
 		Tribe = newTribe;
 
@@ -35,6 +37,7 @@ public class Meeple : MonoBehaviour
                 }
 				physicsBlock.layer = LayerMask.NameToLayer("MeepleRed");
 				shockwave.layer = LayerMask.NameToLayer("MeepleRedShockwave");
+                allyRange.layer = LayerMask.NameToLayer("AllyRangeRed");
 				GameplayManager.Instance.Player.Population++;
 				break;
 			case EMeepleTribe.Blue:
@@ -45,8 +48,9 @@ public class Meeple : MonoBehaviour
                 }
                 physicsBlock.layer = LayerMask.NameToLayer("MeepleBlue");
 				shockwave.layer = LayerMask.NameToLayer("MeepleBlueShockwave");
+                allyRange.layer = LayerMask.NameToLayer("AllyRangeBlue");
 				GameplayManager.Instance.Opponent.Population++;
-				break;
+                break;
 		}
 
 		GameplayManager.Instance.MeeplesOnMap.Add(this);
@@ -60,7 +64,7 @@ public class Meeple : MonoBehaviour
 
 		Color startColor = shockwave.GetComponent<SpriteRenderer>().color;
 
-		shockwave.transform.DOScale(new Vector3(8f, 4f, 1f), 1f);
+		shockwave.transform.DOScale(new Vector3(6f, 4f, 1f), 1f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 1f)
