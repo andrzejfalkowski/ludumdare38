@@ -28,15 +28,17 @@ public class Meeple : MonoBehaviour
 
 		switch(newTribe)
 		{
-			case EMeepleTribe.Red:
+		case EMeepleTribe.Red:
 				spriteRenderer.color = Color.red;
 				physicsBlock.layer = LayerMask.NameToLayer("MeepleRed");
 				shockwave.layer = LayerMask.NameToLayer("MeepleRedShockwave");
+				GameplayManager.Instance.Player.Population++;
 				break;
 			case EMeepleTribe.Blue:
 				spriteRenderer.color = Color.blue;
 				physicsBlock.layer = LayerMask.NameToLayer("MeepleBlue");
 				shockwave.layer = LayerMask.NameToLayer("MeepleBlueShockwave");
+				GameplayManager.Instance.Opponent.Population++;
 				break;
 		}
 
@@ -84,6 +86,18 @@ public class Meeple : MonoBehaviour
 	void OnDestroy()
 	{
 		if(GameplayManager.Instance != null && GameplayManager.Instance.MeeplesOnMap.Contains(this))
+		{
 			GameplayManager.Instance.MeeplesOnMap.Remove(this);
+
+			switch(Tribe)
+			{
+			case EMeepleTribe.Red:
+				GameplayManager.Instance.Player.Population--;
+				break;
+			case EMeepleTribe.Blue:
+				GameplayManager.Instance.Opponent.Population--;
+				break;
+			}
+		}
 	}
 }

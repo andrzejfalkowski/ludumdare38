@@ -10,6 +10,8 @@ public class PlayerLogic : MonoBehaviour
 	public float MeepleCharge = 0f;
 	public float MeepleChargeSpeed = 0.1f;
 
+	public int Population = 0;
+
 	public Action OnChargeReady = null;
 
 	void Update()

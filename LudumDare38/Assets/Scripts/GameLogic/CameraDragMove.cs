@@ -41,7 +41,16 @@ public class CameraDragMove : MonoBehaviour
 			
 		Vector3 viewportMousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
-		if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || 
+		if(Input.GetMouseButton(1) && !BlockDrag) 
+		{
+			difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
+			if(!Drag)
+			{
+				Drag = true;
+				origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			}
+		} 
+		else if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || 
 			Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) ||
 			viewportMousePosition.x < 0.05f || viewportMousePosition.x > 0.95f ||
 			viewportMousePosition.y < 0.05f || viewportMousePosition.y > 0.95f)
@@ -70,20 +79,11 @@ public class CameraDragMove : MonoBehaviour
 
 			this.transform.DOMove(target, 0.3f).SetId("DragCamera").SetUpdate(UpdateType.Late);
 		}
-//		else if(Input.GetMouseButton(1) && !BlockDrag) 
-//		{
-//			difference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
-//			if(!Drag)
-//			{
-//				Drag = true;
-//				origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-//			}
-//		} 
-//		else 
-//		{
-//			Drag = false;
-//		}
-//
+		else 
+		{
+			Drag = false;
+		}
+
 		if(Drag)
 		{
 			//Camera.main.transform.position = origin - difference;
