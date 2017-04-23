@@ -20,6 +20,9 @@ public class AIManager : MonoBehaviour
 
 	void SimulateCreatingMeeple()
 	{
+		if(GameplayManager.Instance.GameOver)
+			return;
+
 		int cnt = 0;
 		// Get random point in collider
 		Vector2 randomPoint = new Vector2(Random.Range(-7f, 34f), Random.Range(-12f, 7f));

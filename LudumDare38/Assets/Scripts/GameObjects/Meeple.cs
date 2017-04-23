@@ -79,8 +79,6 @@ public class Meeple : MonoBehaviour
 
 	public void Fall(bool upperVoid)
 	{
-		
-
 		Collider2D[] colliders = this.GetComponentsInChildren<Collider2D>();
 		for(int i = 0; i < colliders.Length; i++)
 		{

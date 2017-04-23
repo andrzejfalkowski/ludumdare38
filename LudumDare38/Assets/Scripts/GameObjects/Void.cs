@@ -9,6 +9,9 @@ public class Void : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		if(GameplayManager.Instance.GameOver)
+			return;
+
 		if(other.GetComponentInParent<Meeple>() != null
             && !other.isTrigger)
 		{
