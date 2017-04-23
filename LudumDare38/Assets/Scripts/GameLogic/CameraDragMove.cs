@@ -94,15 +94,15 @@ public class CameraDragMove : MonoBehaviour
 			this.transform.DOMove(origin - difference, 0.3f).SetId("DragCamera").SetUpdate(UpdateType.Late);
 		}
 
-//		if(Mathf.Abs(Input.mouseScrollDelta.y) > 0f) 
-//		{
-//			//Camera.main.orthographicSize = 
-//			float targetSize = 
-//				Mathf.Clamp(Camera.main.orthographicSize - (Input.mouseScrollDelta.y * ZOOM_SPEED), MAX_ZOOM, MIN_ZOOM);
-//			
-//			DOTween.To(()=>Camera.main.orthographicSize, (size)=>{Camera.main.orthographicSize = size;}, targetSize, 0.05f)
-//				.SetUpdate(UpdateType.Late);
-//		}
+		if(Mathf.Abs(Input.mouseScrollDelta.y) > 0f) 
+		{
+			//Camera.main.orthographicSize = 
+			float targetSize = 
+				Mathf.Clamp(Camera.main.orthographicSize - (Input.mouseScrollDelta.y * ZOOM_SPEED), MAX_ZOOM, MIN_ZOOM);
+			
+			DOTween.To(()=>Camera.main.orthographicSize, (size)=>{Camera.main.orthographicSize = size;}, targetSize, 0.05f)
+				.SetUpdate(UpdateType.Late);
+		}
 	}
 
 	public void SnapTo(Vector3 snapTarget, bool zoom = true, float time = 0.3f, Action callback = null)
