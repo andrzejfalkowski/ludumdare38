@@ -30,7 +30,7 @@ public class World : MonoBehaviour
 			if(Input.GetMouseButtonDown(0)
                 && UIManager.Instance.Cursor.AlliesInRange > 0)
 			{
-				InputManager.Instance.WorldClicked();
+				InputManager.Instance.WorldClicked(UIManager.Instance.Cursor.AlliesInRange);
 			}
 		}
 		else

@@ -24,7 +24,7 @@ public class Meeple : MonoBehaviour
     [SerializeField]
     GameObject allyRange;
 
-    public void Init(EMeepleTribe newTribe)
+    public void Init(EMeepleTribe newTribe, int alliesInRange)
 	{
 		Tribe = newTribe;
 
@@ -55,16 +55,16 @@ public class Meeple : MonoBehaviour
 
 		GameplayManager.Instance.MeeplesOnMap.Add(this);
 
-		StartShockwave();
+		StartShockwave(alliesInRange);
 	}
 
-	void StartShockwave()
+	void StartShockwave(int alliesInRange)
 	{
 		this.GetComponent<Rigidbody2D>().mass = 1000f;
 
 		Color startColor = shockwave.GetComponent<SpriteRenderer>().color;
 
-		shockwave.transform.DOScale(new Vector3(6f, 4f, 1f), 1f);
+		shockwave.transform.DOScale(new Vector3(6f, 4f, 1f) * GetAlliesModifier(alliesInRange), 1f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 1f)
@@ -76,6 +76,12 @@ public class Meeple : MonoBehaviour
 				}
 			);
 	}
+    
+    private float GetAlliesModifier(int alliesInRange)
+    {
+        // Value between 1 - 3;
+        return 1f + 2f *((float)alliesInRange - 1f) / ((float)alliesInRange + 4f);
+    }
 
 	public void Fall(bool upperVoid)
 	{
