@@ -35,7 +35,7 @@ public class AIManager : MonoBehaviour
 
 		if(cnt < 100)
 		{
-			GameplayManager.Instance.CreateMeeple(SimulatedPlayer.Tribe, randomPoint);
+			GameplayManager.Instance.CreateMeeple(SimulatedPlayer.Tribe, randomPoint, 1);
 			SimulatedPlayer.MeepleCharge = 0f;
 		}
 	}

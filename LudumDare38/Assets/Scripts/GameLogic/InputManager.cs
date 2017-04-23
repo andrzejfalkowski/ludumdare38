@@ -11,12 +11,12 @@ public class InputManager : MonoBehaviour
 		Instance = this;
 	}
 
-	public void WorldClicked()
+	public void WorldClicked(int alliesInRange)
 	{
 		if(UIManager.Instance.Cursor.SpawnMode && UIManager.Instance.Cursor.EmptySlot && GameplayManager.Instance.Player.MeepleCharge >= 1f)
 		{
 			GameplayManager.Instance.Player.MeepleCharge = 0f;
-			GameplayManager.Instance.CreateMeeple(EMeepleTribe.Red, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
+			GameplayManager.Instance.CreateMeeple(EMeepleTribe.Red, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), alliesInRange);
 		}
 	}
 
