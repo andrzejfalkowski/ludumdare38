@@ -15,6 +15,13 @@ public class Meeple : MonoBehaviour
 	public EMeepleTribe Tribe;
 
 	[SerializeField]
+	SpriteRenderer[] colorfulSpriteRenderers;
+	[SerializeField]
+	Color redColor;
+	[SerializeField]
+	Color blueColor;
+
+	[SerializeField]
 	SpriteRenderer[] spriteRenderers;
 
 	[SerializeField]
@@ -24,6 +31,8 @@ public class Meeple : MonoBehaviour
     [SerializeField]
     GameObject allyRange;
 
+
+
     public void Init(EMeepleTribe newTribe)
 	{
 		Tribe = newTribe;
@@ -31,9 +40,9 @@ public class Meeple : MonoBehaviour
 		switch(newTribe)
 		{
 		case EMeepleTribe.Red:
-                foreach (SpriteRenderer sprite in spriteRenderers)
+				foreach (SpriteRenderer sprite in colorfulSpriteRenderers)
                 {
-                    sprite.color = Color.red;
+					sprite.color = redColor;
                 }
 				physicsBlock.layer = LayerMask.NameToLayer("MeepleRed");
 				shockwave.layer = LayerMask.NameToLayer("MeepleRedShockwave");
@@ -42,9 +51,9 @@ public class Meeple : MonoBehaviour
 				break;
 			case EMeepleTribe.Blue:
                 transform.localScale = new Vector3(-1, 1, 1);
-                foreach (SpriteRenderer sprite in spriteRenderers)
+				foreach (SpriteRenderer sprite in colorfulSpriteRenderers)
                 {
-                    sprite.color = Color.blue;
+					sprite.color = blueColor;
                 }
                 physicsBlock.layer = LayerMask.NameToLayer("MeepleBlue");
 				shockwave.layer = LayerMask.NameToLayer("MeepleBlueShockwave");
