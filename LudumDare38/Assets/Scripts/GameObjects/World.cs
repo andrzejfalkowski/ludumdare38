@@ -10,6 +10,9 @@ public class World : MonoBehaviour
 		if(UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
 			return;
 
+		if(GameplayManager.Instance.GameOver)
+			return;
+
 		int layerMask = (1 << 11);
 		layerMask |= (1 << 12);
 		layerMask = ~layerMask;

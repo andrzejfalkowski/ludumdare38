@@ -29,6 +29,9 @@ public class Cursor : MonoBehaviour
 		if(GameplayManager.Instance == null)
 			return;
 
+		if(GameplayManager.Instance.GameOver)
+			return;
+
 		this.transform.position = Input.mousePosition;
 
 		tribesmanSymbol.SetActive(SpawnMode);

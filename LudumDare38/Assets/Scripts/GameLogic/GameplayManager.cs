@@ -9,6 +9,8 @@ public class GameplayManager : MonoBehaviour
 	public PlayerLogic Player;
 	public PlayerLogic Opponent;
 
+	public bool GameOver = false;
+
 	void Awake()
 	{
 		Instance = this;
@@ -29,6 +31,23 @@ public class GameplayManager : MonoBehaviour
 		meeple.transform.localPosition = position;
 
 		meeple.GetComponent<Meeple>().Init(tribe);
+	}
+
+	void Update()
+	{
+		if(!GameOver)
+		{
+			if(Player.Population >= 100)
+			{
+				GameOver = true;
+				UIManager.Instance.ShowVictoryScreen();
+			}
+			else if(Opponent.Population >= 100)
+			{
+				GameOver = true;
+				UIManager.Instance.ShowDefeatScreen();
+			}
+		}
 	}
 
 	void OnDestroy()

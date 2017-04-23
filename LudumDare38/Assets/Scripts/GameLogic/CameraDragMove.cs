@@ -34,6 +34,9 @@ public class CameraDragMove : MonoBehaviour
 		if(EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
 			return;
 
+		if(GameplayManager.Instance.GameOver)
+			return;
+
 		if(snap)
 		{
 			return;
