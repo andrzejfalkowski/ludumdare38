@@ -31,11 +31,19 @@ public class Meeple : MonoBehaviour
     [SerializeField]
     GameObject allyRange;
 
-    public void Init(EMeepleTribe newTribe, int alliesInRange)
-	{
-		Tribe = newTribe;
+    private PlayerLogic owner;
 
-		switch(newTribe)
+    private void Update()
+    {
+        owner.AddChargeBonus(GetOccupiedLandValue());
+    }
+
+    public void Init(PlayerLogic owner, int alliesInRange)
+	{
+        this.owner = owner;
+		Tribe = owner.Tribe;
+
+		switch(owner.Tribe)
 		{
 		case EMeepleTribe.Red:
 				foreach (SpriteRenderer sprite in colorfulSpriteRenderers)
@@ -127,4 +135,9 @@ public class Meeple : MonoBehaviour
 			}
 		}
 	}
+
+    private float GetOccupiedLandValue()
+    {
+        return 0.02f;
+    }
 }

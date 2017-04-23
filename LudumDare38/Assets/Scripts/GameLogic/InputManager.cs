@@ -16,7 +16,10 @@ public class InputManager : MonoBehaviour
 		if(UIManager.Instance.Cursor.SpawnMode && UIManager.Instance.Cursor.EmptySlot && GameplayManager.Instance.Player.MeepleCharge >= 1f)
 		{
 			GameplayManager.Instance.Player.MeepleCharge = 0f;
-			GameplayManager.Instance.CreateMeeple(EMeepleTribe.Red, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), alliesInRange);
+			GameplayManager.Instance.CreateMeeple(
+                GameplayManager.Instance.Player,
+                (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition),
+                alliesInRange);
 		}
 	}
 
