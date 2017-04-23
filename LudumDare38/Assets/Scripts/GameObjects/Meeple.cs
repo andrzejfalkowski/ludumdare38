@@ -56,11 +56,11 @@ public class Meeple : MonoBehaviour
 
 	void StartShockwave()
 	{
-		this.GetComponent<Rigidbody2D>().mass = 10f;
+		this.GetComponent<Rigidbody2D>().mass = 1000f;
 
 		Color startColor = shockwave.GetComponent<SpriteRenderer>().color;
 
-		shockwave.transform.DOScale(new Vector3(8f, 8f, 1f), 1f);
+		shockwave.transform.DOScale(new Vector3(8f, 4f, 1f), 1f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 1f)
