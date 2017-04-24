@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class Cursor : MonoBehaviour 
 {
@@ -10,6 +11,8 @@ public class Cursor : MonoBehaviour
 	TextMeshProUGUI label;
     [SerializeField]
     Image icon;
+	[SerializeField]
+	Image hourglass;
     [SerializeField]
     GameObject allyRange;
     [SerializeField]
@@ -39,6 +42,11 @@ public class Cursor : MonoBehaviour
         set { alliesInRange = value; }
     }
 
+	void Start()
+	{
+		hourglass.transform.DOLocalRotate(new Vector3(0f, 0f, 360f), 1f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart);
+	}
+
     void Update () 
 	{
 		if(GameplayManager.Instance == null)
@@ -56,14 +64,9 @@ public class Cursor : MonoBehaviour
 		{
 			label.text = "Engage spawn mode to place tribesmen";
 		}
-		else if(GameplayManager.Instance.Player.MeepleCharge < 1f
-            && GameplayManager.Instance.Player.RemainingStartingMeeples <= 0)
-		{
-			label.text = "Breeding...";
-            icon.sprite = iconWait;
-		}
 		else
         {
+			hourglass.gameObject.SetActive(false);
             if (!emptySlot)
             {
                 label.text = "Spot blocked";
@@ -79,6 +82,13 @@ public class Cursor : MonoBehaviour
 				label.text = "Place tribesman?";
                 icon.sprite = iconPossible;
             }
+
+			if(GameplayManager.Instance.Player.MeepleCharge < 1f
+				&& GameplayManager.Instance.Player.RemainingStartingMeeples <= 0)
+			{
+				label.text = "Breeding...";
+				hourglass.gameObject.SetActive(true);
+			}
 		}
 	}
 }
