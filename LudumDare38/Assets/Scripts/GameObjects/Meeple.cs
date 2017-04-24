@@ -110,6 +110,12 @@ public class Meeple : MonoBehaviour
 
 	public void Fall(bool upperVoid, int spriteOrder)
 	{
+		DynamicZ[] dynamicZz = this.GetComponentsInChildren<DynamicZ>();
+		for(int i = 0; i < dynamicZz.Length; i++)
+		{
+			dynamicZz[i].enabled = false;
+		}
+
 		Collider2D[] colliders = this.GetComponentsInChildren<Collider2D>();
 		for(int i = 0; i < colliders.Length; i++)
 		{
