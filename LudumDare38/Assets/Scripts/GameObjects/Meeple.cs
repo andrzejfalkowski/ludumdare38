@@ -186,6 +186,6 @@ public class Meeple : MonoBehaviour
     {
 		spawnIcon.gameObject.SetActive(currentAreaBonus > 0f);
 
-        return 0.02f + currentAreaBonus;
+        return 0.01f + currentAreaBonus;
     }
 }

@@ -33,6 +33,11 @@ public class GameplayManager : MonoBehaviour
 		meeple.GetComponent<Meeple>().Init(player, alliesInRange);
 	}
 
+	void Start()
+	{
+		UnityEngine.Cursor.visible = false;
+	}
+
 	void Update()
 	{
 		if(!GameOver)

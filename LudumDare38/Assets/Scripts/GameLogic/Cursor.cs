@@ -67,6 +67,7 @@ public class Cursor : MonoBehaviour
 		icon.gameObject.SetActive(SpawnMode);
         //allyRange.SetActive(SpawnMode);
 
+		icon.color = Color.white;
         if (!SpawnMode)
 		{
 			label.text = "Engage spawn mode to place tribesmen";
@@ -96,6 +97,8 @@ public class Cursor : MonoBehaviour
 			{
 				label.text = "Breeding...";
 				hourglass.gameObject.SetActive(true);
+				if(icon.sprite == iconPossible)
+					icon.color = Color.gray;
 			}
 		}
 
@@ -110,10 +113,24 @@ public class Cursor : MonoBehaviour
 				if(hit.transform.GetComponent<SpecialArea>().BonusAttackValue > 0)
 				{
 					resource.sprite = iconSword;
+
+					if(icon.sprite == iconPossible && !(GameplayManager.Instance.Player.MeepleCharge < 1f
+						&& GameplayManager.Instance.Player.RemainingStartingMeeples <= 0))
+					{
+						icon.color = new Color(1f, 1f, 0.3f);
+					}
+						
 				}
 				else
 				{
 					resource.sprite = iconWater;
+
+					if(icon.sprite == iconPossible && !(GameplayManager.Instance.Player.MeepleCharge < 1f
+						&& GameplayManager.Instance.Player.RemainingStartingMeeples <= 0))
+					{
+						
+						icon.color = new Color(0.5f, 1f, 1f);
+					}
 				}
 			}
 			else
