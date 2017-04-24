@@ -9,9 +9,15 @@ public class Cursor : MonoBehaviour
 	[SerializeField]
 	TextMeshProUGUI label;
     [SerializeField]
-    GameObject tribesmanSymbol;
+    Image icon;
     [SerializeField]
     GameObject allyRange;
+    [SerializeField]
+    Sprite iconWait;
+    [SerializeField]
+    Sprite iconPossible;
+    [SerializeField]
+    Sprite iconImpossible;
 
     bool emptySlot = false;
 	bool spawnMode = true;
@@ -43,7 +49,7 @@ public class Cursor : MonoBehaviour
 
 		this.transform.position = Input.mousePosition;
 
-		tribesmanSymbol.SetActive(SpawnMode);
+		icon.gameObject.SetActive(SpawnMode);
         allyRange.SetActive(SpawnMode);
 
         if (!SpawnMode)
@@ -54,21 +60,25 @@ public class Cursor : MonoBehaviour
             && GameplayManager.Instance.Player.RemainingStartingMeeples <= 0)
 		{
 			label.text = "Breeding...";
+            icon.sprite = iconWait;
 		}
 		else
         {
             if (!emptySlot)
             {
                 label.text = "Spot blocked";
+                icon.sprite = iconImpossible;
             }
             else if (alliesInRange == 0)
             {
                 label.text = "Too far from the tribe";
+                icon.sprite = iconImpossible;
             }
             else
 			{
 				label.text = "Place tribesman?";
-			}
+                icon.sprite = iconPossible;
+            }
 		}
 	}
 }
