@@ -30,13 +30,13 @@ public class AIManager : MonoBehaviour
 		// Get random point in collider
 		Vector2 randomPoint = new Vector2(Random.Range(-7f, 34f), Random.Range(-12f, 7f));
 
-		while(!worldCollider.OverlapPoint(randomPoint) && cnt < 10)
+		while((!worldCollider.OverlapPoint(randomPoint) || World.GetAlliesNumber(SimulatedPlayer.Tribe, randomPoint) == 0) && cnt < 10)
 		{
 			randomPoint = new Vector2(Random.Range(-7f, 34f), Random.Range(-12f, 7f));
 			cnt++;
 		}
 
-		if(cnt < 100)
+		if(cnt < 10)
 		{
 			GameplayManager.Instance.CreateMeeple(SimulatedPlayer, randomPoint, 1);
 			SimulatedPlayer.MeepleCharge = 0f;

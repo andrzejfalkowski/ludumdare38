@@ -11,7 +11,9 @@ public enum EMeepleTribe
 
 public class Meeple : MonoBehaviour 
 {
-	[HideInInspector]
+	[SerializeField]
+	public bool autoInit;
+
 	public EMeepleTribe Tribe;
 
 	[SerializeField]
@@ -39,6 +41,13 @@ public class Meeple : MonoBehaviour
         set { currentAreaBonus = value; }
     }
 
+	void Start()
+	{
+		if(autoInit)
+		{
+			Init(Tribe == EMeepleTribe.Red ? GameplayManager.Instance.Player : GameplayManager.Instance.Opponent, 0);
+		}
+	}
 
     private void Update()
     {

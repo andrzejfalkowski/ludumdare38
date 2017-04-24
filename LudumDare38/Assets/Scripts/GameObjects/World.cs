@@ -44,7 +44,7 @@ public class World : MonoBehaviour
 		}
     }
 
-    private int GetAlliesNumber(EMeepleTribe tribe)
+    public static int GetAlliesNumber(EMeepleTribe tribe)
     {
         int layerMask = 1 << ((tribe == EMeepleTribe.Red) ?
             LayerMask.NameToLayer("AllyRangeRed") :
@@ -52,8 +52,25 @@ public class World : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        RaycastHit2D[] allies = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
+        RaycastHit2D[] allies = Physics2D.GetRayIntersectionAll(ray, 10f, layerMask);
 
         return allies.Length;
     }
+
+	public static int GetAlliesNumber(EMeepleTribe tribe, Vector2 pos)
+	{
+		int layerMask = 1 << ((tribe == EMeepleTribe.Red) ?
+			LayerMask.NameToLayer("AllyRangeRed") :
+			LayerMask.NameToLayer("AllyRangeBlue"));
+
+		RaycastHit2D[] allies = Physics2D.RaycastAll(pos, Vector2.zero, 10f, layerMask);
+
+//		RaycastHit2D hit = new RaycastHit2D();
+//		//RaycastHit2D(
+//		//Ray ray =   Camera.main.ScreenPointToRay(pos);
+//		Ray ray = Physics2D.Raycast(pos, Vector2.zero,
+		//RaycastHit2D[] allies = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity, layerMask);
+
+		return allies.Length;
+	}
 }
