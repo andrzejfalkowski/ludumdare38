@@ -31,7 +31,11 @@ public class PlayerLogic : MonoBehaviour
 
 	void Update()
 	{
-		MeepleCharge = MeepleCharge + Time.deltaTime * meepleChargeSpeed;
+		float mod = 1f;
+		if(Tribe == EMeepleTribe.Blue)
+			mod += ImmortalManager.Instance.SpeedUp;
+
+		MeepleCharge = MeepleCharge + Time.deltaTime * meepleChargeSpeed * mod;
 
 		if(MeepleCharge > 1f)
 		{

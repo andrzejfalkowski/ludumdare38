@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour 
 {
@@ -44,16 +45,27 @@ public class GameplayManager : MonoBehaviour
 		{
 			if(Player.Population >= 100)
 			{
+				UIManager.Instance.Update();
 				GameOver = true;
 				UIManager.Instance.ShowVictoryScreen();
+				UnityEngine.Cursor.visible = true;
 			}
 			else if(Opponent.Population >= 100)
 			{
+				UIManager.Instance.Update();
 				GameOver = true;
 				UIManager.Instance.ShowDefeatScreen();
+				UnityEngine.Cursor.visible = true;
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			UnityEngine.Cursor.visible = true;
+			SceneManager.LoadScene("MainMenu");
+		}
 	}
+
 
 	void OnDestroy()
 	{

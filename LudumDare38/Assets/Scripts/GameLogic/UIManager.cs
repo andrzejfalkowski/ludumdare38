@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	GameObject defeatScreen;
 
-	void Update()
+	public void Update()
 	{
 		if(GameplayManager.Instance.GameOver)
 			return;
@@ -66,6 +66,18 @@ public class UIManager : MonoBehaviour
 	public void ShowDefeatScreen()
 	{
 		defeatScreen.SetActive(true);
+	}
+
+
+	public void TryAgainHarderClicked()
+	{
+		ImmortalManager.Instance.SpeedUp += 0.1f;
+		SceneManager.LoadScene("Gameplay");
+	}
+
+	public void TryAgainClicked()
+	{
+		SceneManager.LoadScene("Gameplay");
 	}
 
 	public void BackToMainMenuClicked()
