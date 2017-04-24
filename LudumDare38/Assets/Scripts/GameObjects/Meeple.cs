@@ -32,6 +32,13 @@ public class Meeple : MonoBehaviour
     GameObject allyRange;
 
     private PlayerLogic owner;
+    private float currentAreaBonus = 0f;
+    public float CurrentAreaBonus
+    {
+        get { return currentAreaBonus; }
+        set { currentAreaBonus = value; }
+    }
+
 
     private void Update()
     {
@@ -141,6 +148,6 @@ public class Meeple : MonoBehaviour
 
     private float GetOccupiedLandValue()
     {
-        return 0.02f;
+        return 0.02f + currentAreaBonus;
     }
 }

@@ -10,8 +10,8 @@ public class Void : MonoBehaviour
 	private int spriteOrder = 0;
 
 	void OnTriggerEnter2D(Collider2D other)
-	{
-		if(GameplayManager.Instance.GameOver)
+    {
+        if (GameplayManager.Instance.GameOver)
 			return;
 
 		if(other.GetComponentInParent<Meeple>() != null
