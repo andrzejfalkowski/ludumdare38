@@ -21,15 +21,18 @@ public class World : MonoBehaviour
 		layerMask |= (1 << 12);
 		layerMask |= (1 << LayerMask.NameToLayer("AllyRangeRed"));
 		layerMask |= (1 << LayerMask.NameToLayer("AllyRangeBlue"));
+		layerMask |= (1 << LayerMask.NameToLayer("SpecialAreas"));
         layerMask = ~layerMask;
 
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, layerMask);
 
-		if(hit.collider != null && hit.collider.transform == this.transform)
+		if(hit.collider != null && hit.collider.transform == this.transform
+            && !hit.collider.isTrigger
+            && hit.collider.gameObject.GetComponentInParent<Meeple>() == null)
 		{
 			UIManager.Instance.Cursor.EmptySlot = true;
-			if(Input.GetMouseButtonDown(0)
+            if (Input.GetMouseButtonDown(0)
                 && UIManager.Instance.Cursor.AlliesInRange > 0)
 			{
 				InputManager.Instance.WorldClicked(UIManager.Instance.Cursor.AlliesInRange);
@@ -40,14 +43,6 @@ public class World : MonoBehaviour
 			UIManager.Instance.Cursor.EmptySlot = false;
 		}
     }
-
-	void OnCollider2DEnter(Collider other)
-	{
-		if(other.gameObject.GetComponent<Meeple>() != null)
-		{
-			Debug.Log("OnCollider2DEnter");
-		}
-	}
 
     private int GetAlliesNumber(EMeepleTribe tribe)
     {
