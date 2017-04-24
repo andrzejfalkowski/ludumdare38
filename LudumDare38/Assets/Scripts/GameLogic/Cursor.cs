@@ -50,7 +50,8 @@ public class Cursor : MonoBehaviour
 		{
 			label.text = "Engage spawn mode to place tribesmen";
 		}
-		else if(GameplayManager.Instance.Player.MeepleCharge < 1f)
+		else if(GameplayManager.Instance.Player.MeepleCharge < 1f
+            && GameplayManager.Instance.Player.RemainingStartingMeeples <= 0)
 		{
 			label.text = "Breeding...";
 		}
