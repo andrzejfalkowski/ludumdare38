@@ -55,8 +55,8 @@ public class CameraDragMove : MonoBehaviour
 		} 
 		else if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || 
 			Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) ||
-			viewportMousePosition.x <= 0f || viewportMousePosition.x >= 1f ||
-			viewportMousePosition.y <= 0f || viewportMousePosition.y >= 1f)
+			viewportMousePosition.x <= 0.01f || viewportMousePosition.x >= 0.99f ||
+			viewportMousePosition.y <= 0.01f || viewportMousePosition.y >= 0.99f)
 		{
 			//Debug.Log(Input.mousePosition);
 
@@ -66,14 +66,14 @@ public class CameraDragMove : MonoBehaviour
 
 			difference = Vector3.zero;
 
-			if(Input.GetKey(KeyCode.LeftArrow) || viewportMousePosition.x <= 0f)
+			if(Input.GetKey(KeyCode.LeftArrow) || viewportMousePosition.x <= 0.01f)
 				difference.x -= ARROWS_MOVE_SPEED;
-			else if(Input.GetKey(KeyCode.RightArrow) || viewportMousePosition.x >= 1f)
+			else if(Input.GetKey(KeyCode.RightArrow) || viewportMousePosition.x >= 0.99f)
 				difference.x += ARROWS_MOVE_SPEED;
 
-			if(Input.GetKey(KeyCode.UpArrow) || viewportMousePosition.y >= 1f)
+			if(Input.GetKey(KeyCode.UpArrow) || viewportMousePosition.y >= 0.99f)
 				difference.y += ARROWS_MOVE_SPEED;
-			else if(Input.GetKey(KeyCode.DownArrow) || viewportMousePosition.y <= 0f)
+			else if(Input.GetKey(KeyCode.DownArrow) || viewportMousePosition.y <= 0.01f)
 				difference.y -= ARROWS_MOVE_SPEED;
 
 			Vector3 target = origin + difference;
