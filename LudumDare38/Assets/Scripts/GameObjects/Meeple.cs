@@ -65,6 +65,7 @@ public class Meeple : MonoBehaviour
 		switch(owner.Tribe)
 		{
 		case EMeepleTribe.Red:
+				transform.localScale = new Vector3(-1, 1, 1);
 				foreach (SpriteRenderer sprite in colorfulSpriteRenderers)
                 {
 					sprite.color = redColor;
@@ -75,7 +76,6 @@ public class Meeple : MonoBehaviour
 				GameplayManager.Instance.Player.Population++;
 				break;
 			case EMeepleTribe.Blue:
-                transform.localScale = new Vector3(-1, 1, 1);
 				foreach (SpriteRenderer sprite in colorfulSpriteRenderers)
                 {
 					sprite.color = blueColor;
@@ -86,6 +86,7 @@ public class Meeple : MonoBehaviour
 				GameplayManager.Instance.Opponent.Population++;
                 break;
 		}
+		UIManager.Instance.PunchPopulation(owner.Tribe);
 
 		GameplayManager.Instance.MeeplesOnMap.Add(this);
 

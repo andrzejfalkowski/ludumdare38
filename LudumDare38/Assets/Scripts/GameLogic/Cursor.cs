@@ -50,7 +50,7 @@ public class Cursor : MonoBehaviour
 		this.transform.position = Input.mousePosition;
 
 		icon.gameObject.SetActive(SpawnMode);
-        allyRange.SetActive(SpawnMode);
+        //allyRange.SetActive(SpawnMode);
 
         if (!SpawnMode)
 		{

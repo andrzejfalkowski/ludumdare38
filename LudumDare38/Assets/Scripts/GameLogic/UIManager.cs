@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour 
 {
@@ -41,6 +42,20 @@ public class UIManager : MonoBehaviour
 
 		playerPopulation.text = GameplayManager.Instance.Player.Population.ToString();
 		opponentPopulation.text = GameplayManager.Instance.Opponent.Population.ToString();
+	}
+
+	public void PunchPopulation(EMeepleTribe tribe)
+	{
+		if(tribe == EMeepleTribe.Red)
+		{
+			DOTween.Kill("punchPlayerPopulation");
+			playerPopulation.transform.DOPunchScale(new Vector3(0.2f, 0.2f, 1f), 0.5f).SetId("punchPlayerPopulation");
+		}
+		else if(tribe == EMeepleTribe.Red)
+		{
+			DOTween.Kill("punchOpponentPopulation");
+			opponentPopulation.transform.DOPunchScale(new Vector3(0.2f, 0.2f, 1f), 0.5f).SetId("punchOpponentPopulation");
+		}
 	}
 
 	public void ShowVictoryScreen()
