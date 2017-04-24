@@ -9,14 +9,11 @@ public class SpecialArea : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("enter", other.gameObject);
         if (other.isTrigger)
         {
-            Debug.Log("trigger");
             return;
         }
-
-        Debug.Log("not trigger");
+        
         Meeple meeple = other.GetComponentInParent<Meeple>();
         if (meeple != null)
         {
@@ -26,15 +23,11 @@ public class SpecialArea : MonoBehaviour {
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("exit", other.gameObject);
-
         if (other.isTrigger)
         {
-            Debug.Log("trigger");
             return;
         }
-
-        Debug.Log("not trigger");
+        
         Meeple meeple = other.GetComponentInParent<Meeple>();
         if (meeple != null)
         {

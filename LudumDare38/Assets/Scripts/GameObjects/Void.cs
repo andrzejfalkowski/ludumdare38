@@ -11,15 +11,6 @@ public class Void : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("enter", other.gameObject);
-        if (other.isTrigger)
-        {
-            Debug.Log("trigger");
-        }
-        else
-        {
-            Debug.Log("not trigger");
-        }
         if (GameplayManager.Instance.GameOver)
 			return;
 
