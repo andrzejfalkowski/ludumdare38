@@ -14,7 +14,7 @@ public class Cursor : MonoBehaviour
     GameObject allyRange;
 
     bool emptySlot = false;
-	bool spawnMode = false;
+	bool spawnMode = true;
     int alliesInRange = 0;
 
     public bool SpawnMode
