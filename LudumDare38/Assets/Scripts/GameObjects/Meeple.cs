@@ -27,6 +27,11 @@ public class Meeple : MonoBehaviour
 	SpriteRenderer[] spriteRenderers;
 
 	[SerializeField]
+	SpriteRenderer attackIcon;
+	[SerializeField]
+	SpriteRenderer spawnIcon;
+
+	[SerializeField]
 	GameObject shockwave;
     [SerializeField]
     GameObject physicsBlock;
@@ -41,6 +46,13 @@ public class Meeple : MonoBehaviour
         set { currentAreaBonus = value; }
     }
 
+	private float currentAttackBonus = 0f;
+	public float CurrentAttackBonus
+	{
+		get { return currentAttackBonus; }
+		set { currentAttackBonus = value; }
+	}
+
 	void Start()
 	{
 		if(autoInit)
@@ -54,6 +66,7 @@ public class Meeple : MonoBehaviour
         if (owner != null)
         {
             owner.AddChargeBonus(GetOccupiedLandValue());
+			owner.AddAttackBonus(GetAttackValue());
         }
     }
 
@@ -99,7 +112,7 @@ public class Meeple : MonoBehaviour
 
 		Color startColor = shockwave.GetComponent<SpriteRenderer>().color;
 
-		shockwave.transform.DOScale(new Vector3(6f, 4f, 1f) * GetAlliesModifier(alliesInRange), 1f);
+		shockwave.transform.DOScale(new Vector3(6f, 4f, 1f) * GetAlliesModifier(alliesInRange) * owner.MeepleAttack, 1f);
 		DOTween.To(
 			() => shockwave.GetComponent<SpriteRenderer>().color.a, 
 			(a) => shockwave.GetComponent<SpriteRenderer>().color = new Color(startColor.r, startColor.g, startColor.b, a), 0f, 1f)
@@ -162,8 +175,17 @@ public class Meeple : MonoBehaviour
 		}
 	}
 
+	private float GetAttackValue()
+	{
+		attackIcon.gameObject.SetActive(currentAttackBonus > 0f);
+
+		return currentAttackBonus;
+	}
+
     private float GetOccupiedLandValue()
     {
+		spawnIcon.gameObject.SetActive(currentAreaBonus > 0f);
+
         return 0.02f + currentAreaBonus;
     }
 }

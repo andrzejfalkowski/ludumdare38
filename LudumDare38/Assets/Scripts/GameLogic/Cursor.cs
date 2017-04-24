@@ -13,6 +13,8 @@ public class Cursor : MonoBehaviour
     Image icon;
 	[SerializeField]
 	Image hourglass;
+	[SerializeField]
+	Image resource;
     [SerializeField]
     GameObject allyRange;
     [SerializeField]
@@ -21,9 +23,14 @@ public class Cursor : MonoBehaviour
     Sprite iconPossible;
     [SerializeField]
     Sprite iconImpossible;
+	[SerializeField]
+	Sprite iconSword;
+	[SerializeField]
+	Sprite iconWater;
 
     bool emptySlot = false;
 	bool spawnMode = true;
+	bool overResource = false;
     int alliesInRange = 0;
 
     public bool SpawnMode
@@ -71,6 +78,7 @@ public class Cursor : MonoBehaviour
             {
                 label.text = "Spot blocked";
                 icon.sprite = iconImpossible;
+				resource.gameObject.SetActive(false);
             }
             else if (alliesInRange == 0)
             {
@@ -89,6 +97,33 @@ public class Cursor : MonoBehaviour
 				label.text = "Breeding...";
 				hourglass.gameObject.SetActive(true);
 			}
+		}
+
+		if(emptySlot)
+		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, 1 << LayerMask.NameToLayer("SpecialAreas"));
+
+			if(hit.collider != null && hit.transform.GetComponent<SpecialArea>() != null)
+			{
+				resource.gameObject.SetActive(true);
+				if(hit.transform.GetComponent<SpecialArea>().BonusAttackValue > 0)
+				{
+					resource.sprite = iconSword;
+				}
+				else
+				{
+					resource.sprite = iconWater;
+				}
+			}
+			else
+			{
+				resource.gameObject.SetActive(false);
+			}
+		}
+		else
+		{
+			resource.gameObject.SetActive(false);
 		}
 	}
 }

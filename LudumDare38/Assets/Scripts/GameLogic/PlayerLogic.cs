@@ -13,6 +13,11 @@ public class PlayerLogic : MonoBehaviour
     private float meepleChargeSpeedBonus = 0f;
     private float meepleChargeSpeed = 0f;
 
+	[System.NonSerialized]
+	public float MeepleAttack = 1f;
+	public float MeepleAttackBase = 1f;
+	private float meepleAttackBonus = 0f;
+
     [SerializeField]
     private int startingMeeples = 5;
     public int RemainingStartingMeeples
@@ -48,12 +53,20 @@ public class PlayerLogic : MonoBehaviour
         // Using late update to make sure all bonuses were reported.
         meepleChargeSpeed = MeepleChargeSpeedBase + meepleChargeSpeedBonus;
         meepleChargeSpeedBonus = 0;
+
+		MeepleAttack = MeepleAttackBase + meepleAttackBonus;
+		meepleAttackBonus = 0;
     }
 
     public void AddChargeBonus(float bonus)
     {
         meepleChargeSpeedBonus += bonus;
     }
+
+	public void AddAttackBonus(float bonus)
+	{
+		meepleAttackBonus += bonus;
+	}
 
     public void TakeStartingMeeple()
     {

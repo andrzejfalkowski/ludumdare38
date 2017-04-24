@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialArea : MonoBehaviour {
-
+public class SpecialArea : MonoBehaviour 
+{
     public float BonusChargeValue = 0f;
-
+	public float BonusAttackValue = 0f;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,6 +18,7 @@ public class SpecialArea : MonoBehaviour {
         if (meeple != null)
         {
             meeple.CurrentAreaBonus = BonusChargeValue;
+			meeple.CurrentAttackBonus = BonusAttackValue;
         }
     }
 
@@ -33,6 +34,7 @@ public class SpecialArea : MonoBehaviour {
         {
             // Assuming there are no areas overlapping.
             meeple.CurrentAreaBonus = 0f;
+			meeple.CurrentAttackBonus = 0f;
         }
     }
 }
