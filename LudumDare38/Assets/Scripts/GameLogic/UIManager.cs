@@ -32,6 +32,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	GameObject defeatScreen;
 
+	bool allowGameOver = false;
+
+
 	public void Update()
 	{
 		if(GameplayManager.Instance.GameOver)
@@ -61,28 +64,35 @@ public class UIManager : MonoBehaviour
 	public void ShowVictoryScreen()
 	{
 		victoryScreen.SetActive(true);
+		DOVirtual.DelayedCall(1.5f, () => { allowGameOver = true; });
 	}
 
 	public void ShowDefeatScreen()
 	{
 		defeatScreen.SetActive(true);
+		DOVirtual.DelayedCall(1.5f, () => { allowGameOver = true; });
 	}
 
 
 	public void TryAgainHarderClicked()
 	{
-		ImmortalManager.Instance.SpeedUp += 0.2f;
-		SceneManager.LoadScene("Gameplay");
+		if(allowGameOver)
+		{
+			ImmortalManager.Instance.SpeedUp += 0.2f;
+			SceneManager.LoadScene("Gameplay");
+		}
 	}
 
 	public void TryAgainClicked()
 	{
-		SceneManager.LoadScene("Gameplay");
+		if(allowGameOver)
+			SceneManager.LoadScene("Gameplay");
 	}
 
 	public void BackToMainMenuClicked()
 	{
-		SceneManager.LoadScene("MainMenu");
+		if(allowGameOver)
+			SceneManager.LoadScene("MainMenu");
 	}
 
 	void OnDestroy()
