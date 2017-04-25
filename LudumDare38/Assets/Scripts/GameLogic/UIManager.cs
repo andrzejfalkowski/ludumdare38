@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
 
 	public void TryAgainHarderClicked()
 	{
-		ImmortalManager.Instance.SpeedUp += 0.1f;
+		ImmortalManager.Instance.SpeedUp += 0.2f;
 		SceneManager.LoadScene("Gameplay");
 	}
 

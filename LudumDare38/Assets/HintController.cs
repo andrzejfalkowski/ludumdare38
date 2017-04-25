@@ -49,9 +49,9 @@ public class HintController : MonoBehaviour
 			{
 				DOTween.To(() => canvasGroup.alpha, (a) => canvasGroup.alpha = a, 0f, 1f).SetDelay(8f).OnComplete(
 					()=>
-				{
-					Next();
-				}
+					{
+						DOVirtual.DelayedCall(40f, ()=> { Next(); });
+					}
 				);
 			}
 			);
