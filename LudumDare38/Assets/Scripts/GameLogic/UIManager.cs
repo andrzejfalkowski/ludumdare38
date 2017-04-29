@@ -26,11 +26,9 @@ public class UIManager : MonoBehaviour
 	TextMeshProUGUI playerPopulation;
 	[SerializeField]
 	TextMeshProUGUI opponentPopulation;
-
-	[SerializeField]
-	GameObject victoryScreen;
-	[SerializeField]
-	GameObject defeatScreen;
+    
+    [SerializeField]
+    ResultsController results;
 
 	bool allowGameOver = false;
 
@@ -61,15 +59,9 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	public void ShowVictoryScreen()
+	public void ShowResults(EGameOverResult result, EGameOverType type)
 	{
-		victoryScreen.SetActive(true);
-		DOVirtual.DelayedCall(1.5f, () => { allowGameOver = true; });
-	}
-
-	public void ShowDefeatScreen()
-	{
-		defeatScreen.SetActive(true);
+        results.Show(result, type);
 		DOVirtual.DelayedCall(1.5f, () => { allowGameOver = true; });
 	}
 

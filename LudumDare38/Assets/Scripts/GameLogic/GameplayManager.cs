@@ -43,21 +43,35 @@ public class GameplayManager : MonoBehaviour
 	{
 		if(!GameOver)
 		{
-			if(Player.Population >= 100)
+			if(Player.Population >= Constants.ECONOMIC_VICTORY_THRESHOLD)
 			{
 				UIManager.Instance.Update();
 				GameOver = true;
-				UIManager.Instance.ShowVictoryScreen();
+				UIManager.Instance.ShowResults(EGameOverResult.Victory, EGameOverType.Economic);
 				UnityEngine.Cursor.visible = true;
 			}
-			else if(Opponent.Population >= 100)
+			else if(Opponent.Population >= Constants.ECONOMIC_VICTORY_THRESHOLD)
 			{
 				UIManager.Instance.Update();
 				GameOver = true;
-				UIManager.Instance.ShowDefeatScreen();
-				UnityEngine.Cursor.visible = true;
-			}
-		}
+                UIManager.Instance.ShowResults(EGameOverResult.Defeat, EGameOverType.Economic);
+                UnityEngine.Cursor.visible = true;
+            }
+            else if (Opponent.Population <= 0)
+            {
+                UIManager.Instance.Update();
+                GameOver = true;
+                UIManager.Instance.ShowResults(EGameOverResult.Victory, EGameOverType.Military);
+                UnityEngine.Cursor.visible = true;
+            }
+            else if (Player.Population <= 0)
+            {
+                UIManager.Instance.Update();
+                GameOver = true;
+                UIManager.Instance.ShowResults(EGameOverResult.Defeat, EGameOverType.Military);
+                UnityEngine.Cursor.visible = true;
+            }
+        }
 
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
